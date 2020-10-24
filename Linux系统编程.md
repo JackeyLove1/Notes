@@ -1,6 +1,10 @@
 # Linux系统编程
 
-## Day 1
+[TOC]
+
+
+
+## 概述
 
 Linux系统： “所见皆文件”
 
@@ -374,7 +378,97 @@ x执行r读w写
 
    **9 选项-g 生成调试信息，该程序可以被调试器调试**
 
+   用法： #gcc hello.c -o hello -g 
+
+   #gdb hello
+
    **10. 选项 –L directory 指定库文件目录**
+
+### gdb使用
+
+**1.启动gdb**
+
+gdb filename ---- 本例中是gdb test，如下图:
+
+或者
+
+(gdb)file filename，如下图:
+
+**2.退出**
+
+(gdb)quit
+
+**3.基本操作**
+
+列出源代码list，在提示符下打入list，会出现一部分源代码，接着按回车会重复上一次命令
+
+可以利用help list查询list的使用方法
+
+* list 10 -- 以第10行为中心显示
+
+* 显示compute函数 list compute
+
+* 列出10-15行的源代码 list 10,15
+
+* 列出其他文件的相应行或函数
+
+  list gdbinc.h:1
+
+  list gdbinc.h:max
+
+**4.运行程序run**
+
+如果需要参数可以在run后面跟上参数
+
+**5.设置断点break**
+
+* 在某行设置断点 break 7
+
+* 在某函数设置断点 break compute
+
+* 在其他文件设置断点(行或函数名) break gdbinc.h:2 break gdbinc.h:max
+
+* 在某个地址设置断点 break *address (当你调试的程序没有源程序时使用)
+
+* 查询断点信息info break
+
+* 条件断点 break or if condition
+
+  如:break 8 if a == 10
+
+* 开启和关闭断点
+
+  disable 断点号 (关闭)
+
+  enable 断点号 (开启)
+
+  enable once 断点号 (开启一次)
+
+  enable delete 断点号(开启一次后删除)
+
+* 删除断点
+
+  delete 断点号
+
+  clear 清除当前行的断点
+
+* 继续执行continue，当执行到某处中断时，使其继续执行
+
+**单步执行不进入函数next**
+
+**单步执行进入函数step**
+
+**终止正在调试的程序kill**
+
+**监视值变动watch expression(当你运行run后，你想知道哪些值在运行中被改变了，可以设置此)**
+
+**监视值被读rwatch expression(基本同上)**
+
+**在运行时打印变量的值print expression**
+
+​	print/F expression,其中F为格式(x--16进制,d--有符号十进制,u--无符号十进制,f--浮点格式)
+
+
 
 #### 静态库制作及使用步骤：
 
